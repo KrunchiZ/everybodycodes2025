@@ -9,7 +9,6 @@ class LinkedList:
     def __init__(self):
         self.head = None
     
-    # Add node at the end
     def append(self, number):
         new_node = Node(number)
         if not self.head:
@@ -21,30 +20,18 @@ class LinkedList:
             current = current.next
         current.next = new_node
     
-    # Add node at the beginning
     def prepend(self, data):
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
     
-    # Print the list
     def display(self):
         current = self.head
         while current:
             print(current.spine, end='')
             current = current.next
         print()
-
-    # Stitch the spines together
-    def stich_spine(self):
-        current = self.head
-        number = 0
-        while(current):
-            number = int(str(number) + str(current.spine))
-            current = current.next
-        return number
     
-    # Delete a node by value
     def delete(self, number):
         if not self.head:
             return
@@ -59,6 +46,14 @@ class LinkedList:
                 current.next = current.next.next
                 return
             current = current.next
+
+    def stich_spine(self):
+        current = self.head
+        number = 0
+        while(current):
+            number = int(str(number) + str(current.spine))
+            current = current.next
+        return number
 
 def generate_fishbone(list):
     fishbone = LinkedList()
