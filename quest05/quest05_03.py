@@ -81,7 +81,7 @@ def generate_fishbone(list):
                     fishbone.append(list[i])
     return fishbone
 
-def is_less(listA, listB):
+def compare_bones(listA, listB):
     currentA = listA.head
     currentB = listB.head
     while (currentA and currentB):
@@ -96,11 +96,13 @@ def is_less(listA, listB):
         if (currentB.right):
             valueB = int(str(valueB) + str(currentB.right))
         if (valueA < valueB):
-            return True
+            return -1
+        elif (valueA > valueB):
+            return 1
         else:
             currentA = currentA.next
             currentB = currentB.next
-    return False
+    return 0
 
 def main():
     swords = {
@@ -617,7 +619,8 @@ def main():
     for i in range(len(sorted_arr) - 1):
         j = 1
         while (sorted_arr[i]["quality"] == sorted_arr[i + j]["quality"]):
-            if (is_less(sorted_arr[i]["bones"], sorted_arr[i + j]["bones"]) == True):
+            value = compare_bones(sorted_arr[i]["bones"], sorted_arr[i + j]["bones"])
+            if (value == -1) or (value == 0 and (sorted_arr[i]["id"] < sorted_arr[i + j]["id"])):
                 sorted_arr[i], sorted_arr[i + j] = sorted_arr[i + j], sorted_arr[i]
             j += 1
             if (i + j) == len(sorted_arr):
