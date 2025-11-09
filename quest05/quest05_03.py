@@ -81,6 +81,27 @@ def generate_fishbone(list):
                     fishbone.append(list[i])
     return fishbone
 
+def is_less(listA, listB):
+    currentA = listA.head
+    currentB = listB.head
+    while (currentA and currentB):
+        valueA = currentA.spine
+        if (currentA.left):
+            valueA = int(str(currentA.left) + str(valueA))
+        if (currentA.right):
+            valueA = int(str(valueA) + str(currentA.right))
+        valueB = currentB.spine
+        if (currentB.left):
+            valueB = int(str(currentB.left) + str(valueB))
+        if (currentB.right):
+            valueB = int(str(valueB) + str(currentB.right))
+        if (valueA < valueB):
+            return True
+        else:
+            currentA = currentA.next
+            currentB = currentB.next
+    return False
+
 def main():
     swords = {
     1: [3,7,9,1,2,5,9,2,2,3,5,1,8,2,1,1,5,2,3,2,3,4,2,8,8,6,4,1,6,2],
@@ -586,14 +607,21 @@ def main():
     }
 
     arr = [None] * len(swords)
-    for i in range(0, len(bones)):
+    for i in range(0, len(arr)):
         arr[i] = {
-            "bones": generate_fishbone(swords[i + 1])
-            "quality": arr[i]["bones"].stich_spine(),
+            "bones": generate_fishbone(swords[i + 1]),
             "id": i + 1
         }
+        arr[i]["quality"] = arr[i]["bones"].stich_spine()
     sorted_arr = sorted(arr, key=lambda x: x["quality"], reverse=True)
-    # 
+    for i in range(len(sorted_arr) - 1):
+        j = 1
+        while (sorted_arr[i]["quality"] == sorted_arr[i + j]["quality"]):
+            if (is_less(sorted_arr[i]["bones"], sorted_arr[i + j]["bones"]) == True):
+                sorted_arr[i], sorted_arr[i + j] = sorted_arr[i + j], sorted_arr[i]
+            j += 1
+            if (i + j) == len(sorted_arr):
+                break
     total = 0;
     for i in range(len(sorted_arr)):
         total += (i + 1) * sorted_arr[i]["id"]
