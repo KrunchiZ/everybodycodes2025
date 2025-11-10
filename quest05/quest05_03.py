@@ -8,38 +8,35 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
-    
+
     def append(self, number):
         new_node = Node(number)
         if not self.head:
             self.head = new_node
             return
-        
         current = self.head
         while current.next:
             current = current.next
         current.next = new_node
-    
+
     def prepend(self, data):
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
-    
+
     def display(self):
         current = self.head
         while current:
             print(current.spine, end='')
             current = current.next
         print()
-    
+
     def delete(self, number):
         if not self.head:
             return
-        
         if self.head.data == data:
             self.head = self.head.next
             return
-        
         current = self.head
         while current.next:
             if current.next.data == data:
@@ -605,7 +602,7 @@ def main():
     497: [8,2,2,3,7,2,2,5,4,8,5,7,5,3,4,4,9,7,1,7,2,6,4,5,3,2,9,7,6,5],
     498: [1,3,6,7,9,1,3,5,8,4,5,7,6,5,2,2,4,2,9,9,2,8,4,1,5,8,9,7,7,9],
     499: [1,4,2,9,9,2,2,4,5,2,3,3,1,9,1,2,2,4,3,1,4,1,1,9,9,4,8,5,6,6],
-    500: [3,8,5,3,8,1,9,7,5,7,9,9,3,8,1,6,2,3,6,5,9,2,2,4,1,4,4,1,3,1],
+    500: [3,8,5,3,8,1,9,7,5,7,9,9,3,8,1,6,2,3,6,5,9,2,2,4,1,4,4,1,3,1]
     }
 
     arr = [None] * len(swords)
