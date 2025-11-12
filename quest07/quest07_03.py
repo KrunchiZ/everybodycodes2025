@@ -67,6 +67,8 @@ def main():
         generate_list(name, rules, list)
     list = set(list)
     list = sorted(list)
+    for name in list:
+        print(name)
     print(len(list))
 
 if __name__ == "__main__":
