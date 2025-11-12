@@ -7,19 +7,18 @@ def name_fit_rules(name, rules):
     return True
 
 def generate_list(name, rules, list):
+    if (len(name) == 11):
+        return
     tail = name[len(name) - 1]
     if (tail in rules):
         for i in rules[tail]:
             tmp = name + i
-            if (len(tmp) > 11):
-                return
-            elif (7 <= len(tmp)):
+            if (7 <= len(tmp)):
                 list.append(tmp)
             generate_list(tmp, rules, list)
 
 def main():
     data = "Ny,Nyl,Nyth,Nyss,Nyrix,Pald,Cael,Fen,Gorath,Ryth,Zyrix,Gar,Grim,Xaral,Elar,Skar,Tharn,Rylar,Bryl,Nex"
-    names = data.split(',')
     rules = {
         's': "asjfcxrzt",
         'E': "l",
@@ -53,22 +52,21 @@ def main():
         'P': "a",
         'm': "jfcxrzst"
     }
+    names = data.split(',')
     total = 0
-    for name in names:
-        if (name_fit_rules(name, rules) == False):
-            names.remove(name)
-    for name in names:
-        for i in names:
-            if (i != name) and (len(i) < 7) and (i.startswith(name) == True):
-                names.remove(i)
-                break
+    names_len = len(names)
+    i = 0
+    while i < names_len:
+        if (name_fit_rules(names[i], rules) == False):
+            names.remove(names[i])
+            i = -1
+            names_len -= 1
+        i += 1
     list = []
     for name in names:
         generate_list(name, rules, list)
     list = set(list)
     list = sorted(list)
-    for name in list:
-        print(name)
     print(len(list))
 
 if __name__ == "__main__":
