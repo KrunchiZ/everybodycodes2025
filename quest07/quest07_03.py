@@ -6,16 +6,16 @@ def name_fit_rules(name, rules):
             return False
     return True
 
-def generate_list(name, names, rules, list):
-    if (len(name) > 11):
-        return
+def generate_list(name, rules, list):
     tail = name[len(name) - 1]
     if (tail in rules):
         for i in rules[tail]:
             tmp = name + i
-            if (7 <= len(tmp) <= 11):
+            if (len(tmp) > 11):
+                return
+            elif (7 <= len(tmp)):
                 list.append(tmp)
-            generate_list(tmp, names, rules, list)
+            generate_list(tmp, rules, list)
 
 def main():
     data = "Ny,Nyl,Nyth,Nyss,Nyrix,Pald,Cael,Fen,Gorath,Ryth,Zyrix,Gar,Grim,Xaral,Elar,Skar,Tharn,Rylar,Bryl,Nex"
@@ -64,7 +64,7 @@ def main():
                 break
     list = []
     for name in names:
-        generate_list(name, names, rules, list)
+        generate_list(name, rules, list)
     list = set(list)
     list = sorted(list)
     print(len(list))
