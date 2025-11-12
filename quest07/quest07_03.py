@@ -7,6 +7,17 @@ def name_fit_rules(name, rules):
     return True
 
 def generate_list(name, rules, list):
+    if (len(name) > 11):
+        return
+    tail = name[len(name) - 1]
+    if (tail in rules):
+        for i in range(len(rules[tail])):
+            tmp = name + rules[tail][i]
+            print(tmp)
+            if (7 <= len(tmp) <= 11):
+                list.append(tmp)
+            generate_list(tmp, rules, list)
+
 
 def main():
     data = "Khara,Xaryt,Noxer,Kharax"
@@ -40,9 +51,8 @@ def main():
     print(names)
     list = []
     for name in range(len(names)):
-        tmp = name
-        if (name[len(name) - 1] in rules):
-    generate_list(name, rules, list)
+        generate_list(name, rules, list)
+    print(len(list))
 
 if __name__ == "__main__":
     main()
